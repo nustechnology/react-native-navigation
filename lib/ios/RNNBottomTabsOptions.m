@@ -20,7 +20,9 @@
 	self.currentTabId = [TextParser parse:dict key:@"currentTabId"];
 	self.barStyle = [TextParser parse:dict key:@"barStyle"];
 	self.fontFamily = [TextParser parse:dict key:@"fontFamily"];
-	
+
+    self.ignoredRetapIndexs = [TextParser parse:dict key:@"ignoredRetapIndexs"];
+
 	return self;
 }
 

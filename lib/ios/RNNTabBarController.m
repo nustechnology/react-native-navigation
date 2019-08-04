@@ -2,6 +2,8 @@
 
 @implementation RNNTabBarController {
 	NSUInteger _currentTabIndex;
+    NSIndexSet* _ignoredRetapIndexs;
+    BOOL _shouldIgnore;
 }
 
 - (id<UITabBarControllerDelegate>)delegate {
@@ -26,6 +28,21 @@
 	}
 }
 
+- (void)forceSelectedIndex:(NSInteger) index{
+    _shouldIgnore = false;
+    [self setSelectedIndex: index];
+}
+
+- (void)forceSelectedIndexByComponentID:(NSString *)componentID{
+    _shouldIgnore = false;
+    [self setSelectedIndexByComponentID:componentID];
+}
+
+- (void)setIgnoredRetapOnItemIndexs:(NSIndexSet *)indexs {
+    _ignoredRetapIndexs = indexs;
+    _shouldIgnore = false;
+}
+
 - (void)setSelectedIndex:(NSUInteger)selectedIndex {
 	_currentTabIndex = selectedIndex;
 	[super setSelectedIndex:selectedIndex];
@@ -40,6 +57,23 @@
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 	[self.eventEmitter sendBottomTabSelected:@(tabBarController.selectedIndex) unselected:@(_currentTabIndex)];
 	_currentTabIndex = tabBarController.selectedIndex;
+}
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    if (_ignoredRetapIndexs != nil && _ignoredRetapIndexs.count == 0) {
+        return true;
+    }
+    NSInteger selectingIndex = [tabBarController.viewControllers indexOfObject:viewController];
+    if (tabBarController.selectedIndex == selectingIndex && [_ignoredRetapIndexs containsIndex:selectingIndex]){
+        if (_shouldIgnore) {
+            [self.eventEmitter sendBottomTabShouldRetap: @(selectingIndex)];
+            return false;
+        }else {
+            _shouldIgnore = true;
+            return true;
+        }
+    }
+    return true;
 }
 
 @end

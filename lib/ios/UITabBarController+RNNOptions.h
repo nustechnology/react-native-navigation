@@ -4,6 +4,12 @@
 
 - (void)rnn_setCurrentTabIndex:(NSUInteger)currentTabIndex;
 
+- (void)rnn_setIgnoredRetapOnItemIndexs:(NSString *)indexs;
+
+- (void)rnn_forceSelectedIndex:(NSInteger) index;
+
+- (void)rnn_forceSelectedIndexByComponentID:(NSString *)componentID;
+
 - (void)rnn_setCurrentTabID:(NSString *)tabID;
 
 - (void)rnn_setTabBarTestID:(NSString *)testID;

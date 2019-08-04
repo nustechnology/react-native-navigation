@@ -7,4 +7,10 @@
 
 - (void)setSelectedIndexByComponentID:(NSString *)componentID;
 
+- (void)setIgnoredRetapOnItemIndexs:(NSIndexSet *)indexs;
+
+- (void)forceSelectedIndex:(NSInteger) index;
+
+- (void)forceSelectedIndexByComponentID:(NSString *)componentID;
+
 @end

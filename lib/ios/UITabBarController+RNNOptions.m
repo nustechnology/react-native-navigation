@@ -7,6 +7,26 @@
 	[self setSelectedIndex:currentTabIndex];
 }
 
+- (void)rnn_setIgnoredRetapOnItemIndexs:(NSString *)indexs {
+	if (indexs != nil) {
+		NSArray<NSString *> *ignoredList = [indexs componentsSeparatedByString:@","];
+		NSMutableIndexSet * indexsSet = [[NSMutableIndexSet alloc] init];
+		for (int i = 0 ; i < ignoredList.count; i++) {
+			NSInteger index = ignoredList[i].integerValue;
+			[indexsSet addIndex:index];
+		}
+		[(RNNTabBarController*)self setIgnoredRetapOnItemIndexs: indexsSet];
+	}
+}
+
+- (void)rnn_forceSelectedIndex:(NSInteger)index {
+	[(RNNTabBarController*)self forceSelectedIndex: index];
+}
+
+- (void)rnn_forceSelectedIndexByComponentID:(NSString *)componentID {
+	[(RNNTabBarController*)self forceSelectedIndexByComponentID: componentID];
+}
+
 - (void)rnn_setCurrentTabID:(NSString *)currentTabId {
 	[(RNNTabBarController*)self setSelectedIndexByComponentID:currentTabId];
 }

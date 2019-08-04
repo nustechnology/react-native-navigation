@@ -19,6 +19,7 @@
     [tabBarController rnn_setTabBarHideShadow:[options.bottomTabs.hideShadow getWithDefaultValue:NO]];
     [tabBarController rnn_setTabBarStyle:[RCTConvert UIBarStyle:[options.bottomTabs.barStyle getWithDefaultValue:@"default"]]];
     [tabBarController rnn_setTabBarVisible:[options.bottomTabs.visible getWithDefaultValue:YES] animated:[options.bottomTabs.animate getWithDefaultValue:NO]];
+	[tabBarController rnn_setIgnoredRetapOnItemIndexs:[options.bottomTabs.ignoredRetapIndexs getWithDefaultValue: nil]];
 }
 
 - (void)mergeOptions:(RNNNavigationOptions *)newOptions currentOptions:(RNNNavigationOptions *)currentOptions defaultOptions:(RNNNavigationOptions *)defaultOptions {

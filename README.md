@@ -22,3 +22,38 @@ React Native Navigation provides 100% native platform navigation on both iOS and
 As `react-native-navigation` is a native navigation library - integrating it into your app will require editing native files. Follow the installation guides in the [documentation](https://wix.github.io/react-native-navigation/).
 
 
+# Update event should ignored retap at indexs
+
+- **Step 1**: add a list of tab indexs you want to ignore into `ignoredRetapIndexs` into config of `bottomTabs`.
+
+```diff
+bottomTabs: {
+	hideShadow: true,
+	animate: false,
+	titleDisplayMode: 'alwaysHide',
+	translucent: false,
+	currentTabIndex: index,
++	ignoredRetapIndexs: "1,2"
+}
+```
+- **Step 2**: Register and listen event
+
+```diff
+constructor(props) {
+    super(props)
+    ...
++   this.bottomTabShouldRetapEventListener = Navigation.events().registerBottomTabShouldRetapListener(this.onBottomTabShouldChange)
+}
+
++onBottomTabShouldChange = ({tabIndex}) => {
++    console.log("onBottomTabShouldChange" + tabIndex);
++    Alert.alert("confirm", "do you want to back home",
++    [{
++      text: "Ok",
++      onPress: () => {
++        Navigation.popToRoot('' + tabIndex)
++      }
++    }]
++    )
++}
+```

@@ -13,7 +13,7 @@
 }
 
 - (UIImage *)getWithDefaultValue:(UIImage *)defaultValue {
-	return [super getWithDefaultValue:defaultValue];
+	return [UIImage imageWithCGImage:[[super getWithDefaultValue:defaultValue] CGImage] scale:[UIScreen mainScreen].scale orientation:UIImageOrientationUp];
 }
 
 @end

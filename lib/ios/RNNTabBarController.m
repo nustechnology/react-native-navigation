@@ -40,7 +40,7 @@
 
 - (void)setIgnoredRetapOnItemIndexs:(NSIndexSet *)indexs {
     _ignoredRetapIndexs = indexs;
-    _shouldIgnore = false;
+    _shouldIgnore = true;
 }
 
 - (void)setSelectedIndex:(NSUInteger)selectedIndex {

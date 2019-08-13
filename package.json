@@ -10,11 +10,11 @@
   "bugs": {
     "url": "https://github.com/wix/react-native-navigation/issues"
   },
-  "homepage": "https://github.com/wix/react-native-navigation",
-  "readme": "https://github.com/wix/react-native-navigation#readme",
+  "homepage": "https://github.com/nustechnology/react-native-navigation",
+  "readme": "https://github.com/nustechnology/react-native-navigation#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wix/react-native-navigation.git"
+    "url": "https://github.com/nustechnology/react-native-navigation.git"
   },
   "main": "lib/dist/index.js",
   "typings": "lib/dist/index.d.ts",

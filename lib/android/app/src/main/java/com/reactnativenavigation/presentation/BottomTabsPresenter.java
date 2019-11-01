@@ -80,6 +80,7 @@ public class BottomTabsPresenter {
         if (options.backgroundColor.hasValue()) {
             bottomTabs.setBackgroundColor(options.backgroundColor.get());
         }
+        bottomTabs.setDefaultBackgroundColor(Color.parseColor("#E8E3E4"));
         if (options.currentTabIndex.hasValue()) {
             int tabIndex = options.currentTabIndex.get();
             if (tabIndex >= 0) tabSelector.selectTab(tabIndex);

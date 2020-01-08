@@ -51,6 +51,15 @@
 	[self.options overrideOptions:options];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    if ([self.options.statusBar.style.get isEqual:@"dark"]) {
+        if (@available(iOS 13.0, *)) {
+            return UIStatusBarStyleDarkContent;
+        } 
+    }
+    return UIStatusBarStyleLightContent;
+}
+
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
 	UIInterfaceOrientationMask interfaceOrientationMask = self.presenter ? [self.presenter getOrientation:[self resolveOptions]] : [[UIApplication sharedApplication] supportedInterfaceOrientationsForWindow:[[UIApplication sharedApplication] keyWindow]];
 	return interfaceOrientationMask;

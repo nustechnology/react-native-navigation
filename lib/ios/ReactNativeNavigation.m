@@ -60,7 +60,12 @@
 
 -(void)bootstrap:(NSURL *)jsCodeLocation launchOptions:(NSDictionary *)launchOptions bridgeManagerDelegate:(id<RNNBridgeManagerDelegate>)delegate {
 	UIWindow* mainWindow = [self initializeKeyWindow];
-	
+     if (@available(iOS 13.0, *)) {
+        UIUserInterfaceStyle traitStyle = UITraitCollection.currentTraitCollection.userInterfaceStyle;
+        mainWindow.backgroundColor =  traitStyle == UIUserInterfaceStyleDark ? [UIColor blackColor] : [UIColor whiteColor];
+      }else {
+         mainWindow.backgroundColor = [UIColor whiteColor];
+      }
 	self.bridgeManager = [[RNNBridgeManager alloc] initWithJsCodeLocation:jsCodeLocation launchOptions:launchOptions bridgeManagerDelegate:delegate mainWindow:mainWindow];
 	[RNNSplashScreen showOnWindow:mainWindow];
 }

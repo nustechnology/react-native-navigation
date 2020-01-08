@@ -21,5 +21,4 @@
 @property (nonatomic, strong) Text* titleDisplayMode;
 @property (nonatomic, strong) BottomTabsAttachMode* tabsAttachMode;
 
-@property (nonatomic, strong) Text* ignoredRetapIndexs;
 @end

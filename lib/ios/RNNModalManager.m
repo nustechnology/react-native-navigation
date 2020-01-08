@@ -25,7 +25,8 @@
 	if (!viewController) {
 		@throw [NSException exceptionWithName:@"ShowUnknownModal" reason:@"showModal called with nil viewController" userInfo:nil];
 	}
-	
+	id<UIApplicationDelegate> appDelegate = [UIApplication sharedApplication].delegate;
+    appDelegate.window.backgroundColor = [UIColor blackColor];
 	UIViewController* topVC = [self topPresentedVC];
 	topVC.definesPresentationContext = YES;
 	

@@ -14,7 +14,7 @@ import {
   ModalDismissedEvent,
   ScreenPoppedEvent
 } from '../interfaces/ComponentEvents';
-import { CommandCompletedEvent, BottomTabSelectedEvent, BottomTabShouldRetapEvent } from '../interfaces/Events';
+import { CommandCompletedEvent, BottomTabSelectedEvent } from '../interfaces/Events';
 
 export class EventsRegistry {
   constructor(private nativeEventsReceiver: NativeEventsReceiver, private commandsObserver: CommandsObserver, private componentEventsObserver: ComponentEventsObserver) { }
@@ -37,10 +37,6 @@ export class EventsRegistry {
 
   public registerBottomTabSelectedListener(callback: (event: BottomTabSelectedEvent) => void): EmitterSubscription {
     return this.nativeEventsReceiver.registerBottomTabSelectedListener(callback);
-  }
-
-  public registerBottomTabShouldRetapListener(callback: (event: BottomTabShouldRetapEvent) => void): EmitterSubscription {
-    return this.nativeEventsReceiver.registerBottomTabShouldRetapListener(callback);
   }
 
   public registerNavigationButtonPressedListener(callback: (event: NavigationButtonPressedEvent) => void): EmitterSubscription {

@@ -111,6 +111,7 @@
         NSString *tabBarBackgroundColor = tabsStyle[@"tabBarBackgroundColor"];
         if (tabBarBackgroundColor) {
             UIColor *color = tabBarBackgroundColor != (id)[NSNull null] ? [RCTConvert UIColor:tabBarBackgroundColor] : nil;
+            self.tabBar.backgroundColor = color;
             self.tabBar.barTintColor = color;
         }
         
@@ -314,7 +315,10 @@
     if ([performAction isEqualToString:@"setTabBarHidden"]) {
         BOOL hidden = [actionParams[@"hidden"] boolValue];
         self.tabBarHidden = hidden;
-        
+        if (hidden) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"tabBarHidden" object:[NSNumber numberWithBool:hidden]];
+        }
+
         CGRect nextFrame = self.tabBar.frame;
         nextFrame.origin.y = UIScreen.mainScreen.bounds.size.height - (hidden ? 0 : self.tabBar.frame.size.height);
         
@@ -329,6 +333,9 @@
          }
                          completion:^(BOOL finished)
          {
+            if (!hidden) {
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"tabBarHidden" object:[NSNumber numberWithBool:hidden]];
+            }
              if (completion != nil) {
                  completion();
              }

@@ -1,18 +1,17 @@
 package com.reactnativenavigation.parse;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
 
 import com.facebook.react.ReactInstanceManager;
 import com.reactnativenavigation.presentation.BottomTabPresenter;
 import com.reactnativenavigation.presentation.BottomTabsPresenter;
 import com.reactnativenavigation.presentation.ComponentPresenter;
+import com.reactnativenavigation.presentation.ExternalComponentPresenter;
 import com.reactnativenavigation.presentation.Presenter;
 import com.reactnativenavigation.presentation.RenderChecker;
 import com.reactnativenavigation.presentation.SideMenuPresenter;
 import com.reactnativenavigation.presentation.StackPresenter;
-import com.reactnativenavigation.react.EventEmitter;
+import com.reactnativenavigation.react.events.EventEmitter;
 import com.reactnativenavigation.utils.Assertions;
 import com.reactnativenavigation.utils.ImageLoader;
 import com.reactnativenavigation.utils.TypefaceLoader;
@@ -21,6 +20,7 @@ import com.reactnativenavigation.viewcontrollers.ComponentViewController;
 import com.reactnativenavigation.viewcontrollers.ViewController;
 import com.reactnativenavigation.viewcontrollers.bottomtabs.BottomTabsAttacher;
 import com.reactnativenavigation.viewcontrollers.bottomtabs.BottomTabsController;
+import com.reactnativenavigation.viewcontrollers.button.IconResolver;
 import com.reactnativenavigation.viewcontrollers.externalcomponent.ExternalComponentCreator;
 import com.reactnativenavigation.viewcontrollers.externalcomponent.ExternalComponentViewController;
 import com.reactnativenavigation.viewcontrollers.sidemenu.SideMenuController;
@@ -36,6 +36,9 @@ import com.reactnativenavigation.views.toptabs.TopTabsLayoutCreator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 
 import static com.reactnativenavigation.parse.Options.parse;
 
@@ -168,12 +171,13 @@ public class LayoutFactory {
                 externalComponentCreators.get(externalComponent.name.get()),
                 reactInstanceManager,
                 new EventEmitter(reactInstanceManager.getCurrentReactContext()),
+                new ExternalComponentPresenter(),
                 parse(typefaceManager, node.getOptions())
         );
     }
 
 	private ViewController createStack(LayoutNode node) {
-        return new StackControllerBuilder(activity)
+        return new StackControllerBuilder(activity, eventEmitter)
                 .setChildren(createChildren(node.children))
                 .setChildRegistry(childRegistry)
                 .setTopBarController(new TopBarController())
@@ -183,7 +187,7 @@ public class LayoutFactory {
                         new TitleBarReactViewCreator(reactInstanceManager),
                         new TopBarBackgroundViewCreator(reactInstanceManager),
                         new TitleBarButtonCreator(reactInstanceManager),
-                        new ImageLoader(),
+                        new IconResolver(activity, new ImageLoader()),
                         new RenderChecker(),
                         defaultOptions
                 ))

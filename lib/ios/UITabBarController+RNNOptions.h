@@ -2,26 +2,22 @@
 
 @interface UITabBarController (RNNOptions)
 
-- (void)rnn_setCurrentTabIndex:(NSUInteger)currentTabIndex;
+- (void)setCurrentTabIndex:(NSUInteger)currentTabIndex;
 
-- (void)rnn_setIgnoredRetapOnItemIndexs:(NSString *)indexs;
+- (void)setCurrentTabID:(NSString *)tabID;
 
-- (void)rnn_forceSelectedIndex:(NSInteger) index;
+- (void)setTabBarTestID:(NSString *)testID;
 
-- (void)rnn_forceSelectedIndexByComponentID:(NSString *)componentID;
+- (void)setTabBarBackgroundColor:(UIColor *)backgroundColor;
 
-- (void)rnn_setCurrentTabID:(NSString *)tabID;
+- (void)setTabBarStyle:(UIBarStyle)barStyle;
 
-- (void)rnn_setTabBarTestID:(NSString *)testID;
+- (void)setTabBarTranslucent:(BOOL)translucent;
 
-- (void)rnn_setTabBarBackgroundColor:(UIColor *)backgroundColor;
+- (void)setTabBarHideShadow:(BOOL)hideShadow;
 
-- (void)rnn_setTabBarStyle:(UIBarStyle)barStyle;
+- (void)setTabBarVisible:(BOOL)visible animated:(BOOL)animated;
 
-- (void)rnn_setTabBarTranslucent:(BOOL)translucent;
-
-- (void)rnn_setTabBarHideShadow:(BOOL)hideShadow;
-
-- (void)rnn_setTabBarVisible:(BOOL)visible animated:(BOOL)animated;
+- (void)centerTabItems;
 
 @end

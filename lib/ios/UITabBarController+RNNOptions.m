@@ -1,57 +1,38 @@
 #import "UITabBarController+RNNOptions.h"
-#import "RNNTabBarController.h"
+#import "RNNBottomTabsController.h"
+#import "UITabBar+utils.h"
 
 @implementation UITabBarController (RNNOptions)
 
-- (void)rnn_setCurrentTabIndex:(NSUInteger)currentTabIndex {
+- (void)setCurrentTabIndex:(NSUInteger)currentTabIndex {
 	[self setSelectedIndex:currentTabIndex];
 }
 
-- (void)rnn_setIgnoredRetapOnItemIndexs:(NSString *)indexs {
-	if (indexs != nil) {
-		NSArray<NSString *> *ignoredList = [indexs componentsSeparatedByString:@","];
-		NSMutableIndexSet * indexsSet = [[NSMutableIndexSet alloc] init];
-		for (int i = 0 ; i < ignoredList.count; i++) {
-			NSInteger index = ignoredList[i].integerValue;
-			[indexsSet addIndex:index];
-		}
-		[(RNNTabBarController*)self setIgnoredRetapOnItemIndexs: indexsSet];
-	}
+- (void)setCurrentTabID:(NSString *)currentTabId {
+	[(RNNBottomTabsController*)self setSelectedIndexByComponentID:currentTabId];
 }
 
-- (void)rnn_forceSelectedIndex:(NSInteger)index {
-	[(RNNTabBarController*)self forceSelectedIndex: index];
-}
-
-- (void)rnn_forceSelectedIndexByComponentID:(NSString *)componentID {
-	[(RNNTabBarController*)self forceSelectedIndexByComponentID: componentID];
-}
-
-- (void)rnn_setCurrentTabID:(NSString *)currentTabId {
-	[(RNNTabBarController*)self setSelectedIndexByComponentID:currentTabId];
-}
-
-- (void)rnn_setTabBarTestID:(NSString *)testID {
+- (void)setTabBarTestID:(NSString *)testID {
 	self.tabBar.accessibilityIdentifier = testID;
 }
 
-- (void)rnn_setTabBarBackgroundColor:(UIColor *)backgroundColor {
+- (void)setTabBarBackgroundColor:(UIColor *)backgroundColor {
 	self.tabBar.barTintColor = backgroundColor;
 }
 
-- (void)rnn_setTabBarStyle:(UIBarStyle)barStyle {
+- (void)setTabBarStyle:(UIBarStyle)barStyle {
 	self.tabBar.barStyle = barStyle;
 }
 
-- (void)rnn_setTabBarTranslucent:(BOOL)translucent {
+- (void)setTabBarTranslucent:(BOOL)translucent {
 	self.tabBar.translucent = translucent;
 }
 
-- (void)rnn_setTabBarHideShadow:(BOOL)hideShadow {
+- (void)setTabBarHideShadow:(BOOL)hideShadow {
 	self.tabBar.clipsToBounds = hideShadow;
 }
 
-- (void)rnn_setTabBarVisible:(BOOL)visible animated:(BOOL)animated {
+- (void)setTabBarVisible:(BOOL)visible animated:(BOOL)animated {
     const CGRect tabBarFrame = self.tabBar.frame;
 	const CGRect tabBarVisibleFrame = CGRectMake(tabBarFrame.origin.x,
 												 self.view.frame.size.height - tabBarFrame.size.height,
@@ -94,7 +75,11 @@
 	}
 }
 
-- (void)rnn_forEachTab:(void (^)(UIView *, UIViewController * tabViewController, int tabIndex))performOnTab {
+- (void)centerTabItems {
+	[self.tabBar centerTabItems];
+}
+
+- (void)forEachTab:(void (^)(UIView *, UIViewController * tabViewController, int tabIndex))performOnTab {
     int tabIndex = 0;
     for (UIView * tab in self.tabBar.subviews) {
         if ([NSStringFromClass([tab class]) isEqualToString:@"UITabBarButton"]) {

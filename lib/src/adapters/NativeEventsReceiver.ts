@@ -6,9 +6,10 @@ import {
   SearchBarUpdatedEvent,
   SearchBarCancelPressedEvent,
   PreviewCompletedEvent,
-  ModalDismissedEvent
+  ModalDismissedEvent,
+  ScreenPoppedEvent
 } from '../interfaces/ComponentEvents';
-import { CommandCompletedEvent, BottomTabSelectedEvent, BottomTabShouldRetapEvent } from '../interfaces/Events';
+import { CommandCompletedEvent, BottomTabSelectedEvent } from '../interfaces/Events';
 
 export class NativeEventsReceiver {
   private emitter: EventEmitter;
@@ -68,7 +69,7 @@ export class NativeEventsReceiver {
     return this.emitter.addListener('RNN.BottomTabSelected', callback);
   }
 
-  public registerBottomTabShouldRetapListener(callback: (data: BottomTabShouldRetapEvent) => void): EmitterSubscription {
-    return this.emitter.addListener('RNN.BottomTabShouldRetap', callback);
+  public registerScreenPoppedListener(callback: (event: ScreenPoppedEvent) => void): EmitterSubscription {
+    return this.emitter.addListener('RNN.ScreenPopped', callback);
   }
 }

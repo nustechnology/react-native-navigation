@@ -43,6 +43,7 @@
 												tabBarFrame.size.width,
 												tabBarFrame.size.height);
 	if (!animated) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"tabBarHidden" object:[NSNumber numberWithBool:!visible]];
 		self.tabBar.hidden = !visible;
 		self.tabBar.frame = visible ? tabBarVisibleFrame : tabBarHiddenFrame;
 		return;
@@ -50,6 +51,7 @@
 	static const CGFloat animationDuration = 0.15;
 
 	if (visible) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"tabBarHidden" object:@NO];
 		self.tabBar.hidden = NO;
 		[UIView animateWithDuration: animationDuration
 							  delay: 0
@@ -61,6 +63,7 @@
 						 completion:^(BOOL finished)
 		 {}];
 	} else {
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"tabBarHidden" object:@YES];
 		[UIView animateWithDuration: animationDuration
 							  delay: 0
 							options: UIViewAnimationOptionCurveEaseIn

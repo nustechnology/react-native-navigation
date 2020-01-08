@@ -8,4 +8,7 @@
     <style name="Widget.Support.CoordinatorLayout" parent="android:Widget">
         @null
     </style>
+    <style name="Widget.AppCompat.TextView" parent="android:Widget">
+        @null
+    </style>
 </resources>

@@ -25,6 +25,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    if (@available(iOS 13.0, *)) {
+      UIUserInterfaceStyle traitStyle = UITraitCollection.currentTraitCollection.userInterfaceStyle;
+         [self.view setBackgroundColor:traitStyle == UIUserInterfaceStyleDark ? [UIColor blackColor] : [UIColor whiteColor]];
+    }
 	[_presenter applyOptions:self.resolveOptions];
 	[self.parentViewController onChildWillAppear];
 }

@@ -1,6 +1,7 @@
 package com.reactnativenavigation.viewcontrollers.bottomtabs;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,9 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
         CoordinatorLayout.LayoutParams lp = new CoordinatorLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
         lp.gravity = Gravity.BOTTOM;
 		root.addView(bottomTabs, lp);
-
+         Configuration configuration = getActivity().getResources().getConfiguration();
+         int color = configuration.uiMode == Configuration.UI_MODE_NIGHT_MASK ? 0xff000000 : 0xffffffff;
+		root.setBackgroundColor(color);
         bottomTabs.addItems(createTabs());
         tabsAttacher.attach();
         return root;

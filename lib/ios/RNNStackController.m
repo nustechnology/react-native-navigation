@@ -46,6 +46,12 @@
     _presentedViewController = viewController;
 }
 
+- (void)viewWillLayoutSubviews {
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+}
+
 - (void)sendScreenPoppedEvent:(UIViewController *)poppedScreen {
     [self.eventEmitter sendScreenPoppedEvent:poppedScreen.layoutInfo.componentId];
 }
